@@ -1,0 +1,4 @@
+# Internal design work — candid critique of the old site, not for the public web.
+design/
+# Dormant React port; the deployed site is the static index.html at root.
+react-port/
