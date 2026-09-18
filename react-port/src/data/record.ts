@@ -151,11 +151,10 @@ export const posts: Post[] = [
     span: 'Mar 2026 — present',
     current: true,
     body:
-      'Robustness testing of Merlin, Stanford’s 3D CT vision-language foundation model, in Dr. John Virostko’s group. Merlin does phenotype classification across 1,692 conditions, five-year risk prediction and report generation; my job is to find where it breaks.',
+      'Robustness testing of Merlin, Stanford’s 3D CT vision-language foundation model, in Dr. John Virostko’s group. My job is to find where it breaks.',
     points: [
-      'Built an edge-case suite across six categories, scored on cosine similarity, logit drift, KL divergence, top-3 rank retention, entropy and confidence gap',
-      'Found the language channel has no measurable effect on phenotype output: across 15 text variants — wrong, empty, negated, adversarial, out-of-domain, non-English — logit drift and KL stayed at zero and top-3 rank held at 3/3, while image–text cosine similarity swung from 0.39 to −0.07',
-      'Ran a Rician-noise sweep at 15 sigma levels × 10 Monte Carlo seeds (150 inferences); top-1 accuracy holds to σ≈0.05 and collapses by σ≈0.10, with top-5 surviving to σ≈0.15',
+      'Built an edge-case evaluation suite across six categories of degraded, unusual and mismatched input',
+      'Measures output stability against a clean baseline; results unpublished and kept in the lab',
     ],
     stack: ['PyTorch', 'Python', '3D CT', 'NIfTI'],
   },

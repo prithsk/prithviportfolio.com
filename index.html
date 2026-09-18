@@ -144,6 +144,8 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
 .res td:first-child{color:var(--dark-bright);padding-right:10px}
 .res tr:last-child td{border-bottom:0}
 .res .zero{color:var(--mark)}
+.cur .res th,.cur .res td{text-align:left;vertical-align:top;line-height:1.55}
+.cur .res td:first-child{white-space:nowrap;padding-right:16px;color:var(--mark)}
 .res .cap{font-size:10.5px;color:var(--dark-dim);line-height:1.7;margin-top:12px;padding-top:11px;border-top:1px solid var(--dark-line)}
 .find{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);margin-top:36px;
       padding-top:26px;border-top:1px solid var(--rule)}
@@ -331,7 +333,7 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
       </figure>
     </div>
     <div class="dfoot">
-      <span>prithvi.krishnan@utexas.edu · 512-796-8547</span>
+      <span>prithvi.krishnan@utexas.edu · Austin, Texas</span>
       <span><a href="https://patents.google.com/patent/US12190518B1/en">Full patent</a> · <a href="Prithvi-Krishnan-Resume.pdf">Résumé</a> · <a href="https://github.com/prithsk">GitHub</a> · <a href="https://www.linkedin.com/in/prithvi-sairaj-krishnan-262538279/">LinkedIn</a> · <a href="https://x.com/building_pri">X</a></span>
     </div>
   </article>
@@ -400,42 +402,27 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
 <!-- ════════════════ CURRENT RESEARCH · MERLIN ════════════════ -->
 <section class="cur" id="current">
   <p class="eyebrow">Current research</p>
-  <h2 class="h2">Finding where Stanford’s CT foundation model breaks</h2>
-  <p class="lede">Merlin reads 3D abdominal CT and classifies across 1,692 conditions. My job in the lab is not to build it — it is to find the inputs that make it wrong.</p>
+  <h2 class="h2">Stress-testing Stanford’s CT foundation model</h2>
+  <p class="lede">Merlin reads 3D abdominal CT alongside clinical text. My job in the lab is not to build it — it is to find the inputs that make it wrong.</p>
   <div class="in">
     <div>
       <p class="who">Undergraduate Research Assistant · <b>March 2026 — present</b><br>Dr. John Virostko’s group · Dell Medical School, UT Austin</p>
-      <p class="d">Merlin is a vision-language model: it takes a CT volume <em>and</em> a clinical text report, and its published results cover phenotype classification, five-year risk prediction and report generation.</p>
-      <p class="d">I built an edge-case suite across six categories, scored on cosine similarity, logit drift, KL divergence, top-3 rank retention, entropy and confidence gap. The first thing it turned up was not a degradation curve. It was a flat line.</p>
-      <p class="d">Fifteen text variants against one fixed CT volume — correct, wrong, empty, negated, self-contradictory, a stock-market discussion, Mandarin, typos. The image–text similarity score moves exactly as you would hope. The predictions do not move at all.</p>
+      <p class="d">Merlin is a vision-language model: it takes a CT volume <em>and</em> a clinical report, and supports phenotype classification, risk prediction and report generation.</p>
+      <p class="d">I built an edge-case evaluation suite that feeds it degraded, unusual and mismatched inputs, then measures how far its outputs move from a clean baseline — and whether they move for the right reasons.</p>
+      <p class="d">The work is ongoing and unpublished, so the results stay in the lab for now.</p>
     </div>
     <div class="res">
-      <div class="hd"><span>Text impact · 15 variants, image held fixed</span><span>abdominal CT</span></div>
+      <div class="hd"><span>Evaluation suite</span><span>in progress</span></div>
       <table>
-        <thead><tr><th>Text input</th><th>Sim</th><th>Drift</th><th>KL</th><th>Rank</th></tr></thead>
+        <thead><tr><th>What it probes</th><th>How</th></tr></thead>
         <tbody>
-          <tr><td>Correct</td><td class="tnum">0.3882</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Wrong diagnosis</td><td class="tnum">−0.0705</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Empty string</td><td class="tnum">0.2856</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Negation</td><td class="tnum">−0.2256</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Adversarial</td><td class="tnum">−0.0539</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Finance text</td><td class="tnum">0.0985</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
-          <tr><td>Mandarin</td><td class="tnum">0.1294</td><td class="tnum zero">0.0000</td><td class="tnum zero">0.0000</td><td>3/3</td></tr>
+          <tr><td>Text sensitivity</td><td>Wrong, empty, negated, adversarial, out-of-domain and non-English reports</td></tr>
+          <tr><td>Image noise</td><td>Swept noise models with repeated random seeds</td></tr>
+          <tr><td>Unusual inputs</td><td>Degraded and mismatched scans</td></tr>
+          <tr><td>Output stability</td><td>Embedding similarity, logit drift, distribution shift, rank retention, entropy</td></tr>
         </tbody>
       </table>
-      <p class="cap">Drift = mean absolute change in prediction logits against baseline. KL = shift in the full prediction distribution. Rank = top-3 conditions still matching baseline. Zero across every variant.</p>
-    </div>
-  </div>
-  <div class="find">
-    <div>
-      <p class="n">Finding 01</p>
-      <h3>The language half of the vision-language model does not reach the prediction</h3>
-      <p>Similarity swings from 0.39 to −0.07 as the text goes from correct to wrong, so the text encoder is working. But logit drift, KL divergence and top-3 rank do not move by any amount at all. For phenotype classification, Merlin is image-only at inference — and a clinician handing it a report would have no way to know that.</p>
-    </div>
-    <div>
-      <p class="n">Finding 02</p>
-      <h3>Noise robustness has a cliff, not a slope</h3>
-      <p>A Rician-noise sweep across 15 sigma levels with 10 Monte Carlo seeds each — 150 inferences. Top-1 accuracy holds perfectly to σ≈0.05, then falls off entirely by σ≈0.10. Top-5 survives to σ≈0.15. The model does not degrade gracefully; it is right until it is abruptly not.</p>
+      <p class="cap">Six categories of edge case, each compared against the unmodified input.</p>
     </div>
   </div>
 </section>
@@ -511,7 +498,7 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
       <div class="it">
         <h3>UT Austin · Dell Medical School</h3>
         <p class="meta">Undergraduate Research Assistant · <span class="live">Mar 2026 — present</span></p>
-        <p>Robustness testing of Merlin, Stanford’s 3D CT foundation model, in Dr. John Virostko’s group. Edge-case suite across six categories; found the model’s text input has no effect on its phenotype predictions.</p>
+        <p>Robustness testing of Merlin, Stanford’s 3D CT foundation model, in Dr. John Virostko’s group. Built an edge-case evaluation suite across six categories of degraded and mismatched input.</p>
       </div>
       <div class="it">
         <h3>Deep24 Builder Fellowship</h3>
@@ -652,7 +639,7 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
   </div>
   <div class="foot">
     <span>B.S. Electrical &amp; Computer Engineering · UT Austin · December 2028</span>
-    <span>Austin, Texas · 512-796-8547 · English, Tamil, Spanish, Mandarin</span>
+    <span>Austin, Texas · English, Tamil, Spanish, Mandarin</span>
   </div>
 </section>
 
@@ -681,7 +668,7 @@ section{padding:clamp(44px,7vw,92px) var(--pad)}
     running: ["The medical cost model runs as a live Streamlit app anyone can try. signet is an e-signature API whose PDFs verify offline against an Ed25519 key. Tally reconciles expenses against Gmail receipts at 0.906 match accuracy with zero false confidence.|primer is a reading tutor for four-to-six-year-olds that can only use words the child has been taught.",
       "github.com/prithsk · 14 repositories<br>insurance-premium-predictor-pt.streamlit.app"],
     seeking: ["A summer 2027 internship in machine learning, applied research or software engineering. Austin, or anywhere.|Currently an undergraduate research assistant in Dr. Virostko's group at Dell Medical School, doing robustness testing on Stanford's Merlin CT foundation model.",
-      "prithvi.krishnan@utexas.edu<br>512-796-8547 · Austin, Texas"]
+      "prithvi.krishnan@utexas.edu<br>Austin, Texas"]
   };
   var box = document.querySelector('.ans');
   if (!box) return;
