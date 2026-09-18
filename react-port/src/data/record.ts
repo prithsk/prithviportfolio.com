@@ -33,6 +33,7 @@ export const links = {
   tel: 'tel:+15127968547',
   linkedin: 'https://www.linkedin.com/in/prithvi-sairaj-krishnan-262538279/',
   github: 'https://github.com/prithsk',
+  x: 'https://x.com/building_pri',
   resume: '/Prithvi-Krishnan-Resume.pdf',
   site: 'https://www.prithviportfolio.com/',
 } as const
@@ -368,7 +369,7 @@ export const coursework = [
   'IB Computer Science HL',
 ]
 
-export const gpa = '3.1'
+export const gpa = '3.2'
 
 /* ------------------------------------------------------------------ */
 /* Counts used in the masthead. Each one is derivable from the entries */
