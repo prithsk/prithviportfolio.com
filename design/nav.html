@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolbar Variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --stock:#FAF9F6; --paper:#F1F3F4; --ground:#EDEBE4;
+  --ink:#12171A; --slate:#5C6672; --rule:#DCD9D0; --mark:#BF5700;
+  --dark:#2E2B26; --dark-text:#CFC8BA; --dark-line:#454036;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --serif:"Newsreader",Georgia,serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#26282B;color:#E9EAEB;font-family:var(--serif);font-optical-sizing:auto}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.bh{padding:48px 0 16px}
+.bh h1{font-size:clamp(30px,4.6vw,48px);font-weight:300;letter-spacing:-.02em;margin:0 0 12px}
+.bh p{color:#9AA0A6;font-size:15px;line-height:1.65;max-width:64ch;margin:0 0 8px}
+.v{margin:30px 0 0;border:1px solid #3E4247;border-radius:6px;overflow:hidden}
+.vhead{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:12px 16px;background:#303337;border-bottom:1px solid #3E4247}
+.vid{font-family:var(--mono);font-size:12px;font-weight:600;color:#12151A;background:var(--mark);padding:3px 8px;border-radius:3px}
+.vname{font-size:16px;font-weight:500}
+.vwhy{font-size:13px;color:#9AA0A6;line-height:1.55;flex:1 1 300px}
+
+/* mini page beneath each bar, so the bar is judged in context */
+.page{background:var(--ground);color:var(--ink);position:relative}
+.peek{padding:26px 40px 30px}
+.peek .doc{background:var(--stock);border:1px solid var(--rule);padding:22px 26px;max-width:1080px;margin:0 auto}
+.peek .dh{display:flex;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--slate)}
+.peek .dh b{color:var(--ink)}
+.peek h2{font-size:clamp(26px,4vw,44px);font-weight:250;letter-spacing:-.03em;margin:16px 0 4px}
+.peek small{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--slate)}
+
+a{color:inherit;text-decoration:none}
+.m{font-family:var(--mono)}
+
+/* ───────── T0 · current ───────── */
+.t0{background:rgba(250,249,246,.95);border-bottom:1px solid var(--rule);padding:16px 40px 0}
+.t0 .top{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:11px}
+.t0 .wm{font-size:17px}
+.t0 .st{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.t0 .st b{color:var(--mark);font-weight:500}
+.t0 ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
+.t0 li a{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--slate);padding:9px 20px 9px 0;border-top:2px solid transparent}
+.t0 li a.on{color:var(--ink);border-top-color:var(--mark)}
+
+/* ───────── T1 · document header ───────── */
+.t1{background:var(--stock);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:auto 1fr auto;align-items:stretch}
+.t1 .id{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.04em;padding:15px 20px;border-right:1px solid var(--ink);display:flex;align-items:center;gap:10px}
+.t1 .id i{font-style:normal;color:var(--mark)}
+.t1 nav{display:flex;align-items:center;gap:26px;padding:0 24px;overflow-x:auto}
+.t1 nav a{font-size:15px;color:var(--slate);white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent;transition:.15s}
+.t1 nav a:hover,.t1 nav a.on{color:var(--ink);border-bottom-color:var(--mark)}
+.t1 .cta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--stock);padding:0 20px;display:flex;align-items:center;transition:.15s}
+.t1 .cta:hover{background:var(--mark)}
+
+/* ───────── T2 · floating bar ───────── */
+.t2wrap{position:absolute;left:0;right:0;top:14px;display:flex;justify-content:center;z-index:2;pointer-events:none}
+.t2{pointer-events:auto;display:flex;align-items:center;gap:4px;background:rgba(250,249,246,.88);backdrop-filter:blur(14px);border:1px solid var(--rule);border-radius:10px;padding:5px;box-shadow:0 6px 24px -12px rgba(18,23,26,.35)}
+.t2 .wm{font-size:15.5px;padding:0 14px 0 10px;border-right:1px solid var(--rule);margin-right:4px;white-space:nowrap}
+.t2 a.l{font-family:var(--mono);font-size:11.5px;color:var(--slate);padding:8px 12px;border-radius:6px;transition:.15s;white-space:nowrap}
+.t2 a.l:hover{color:var(--ink);background:var(--paper)}
+.t2 a.l.on{color:var(--ink);background:var(--ground)}
+.t2 .cta{font-family:var(--mono);font-size:11.5px;background:var(--mark);color:#FBF6F2;padding:8px 14px;border-radius:6px;margin-left:4px;white-space:nowrap}
+.page.float .peek{padding-top:82px}
+
+/* ───────── T3 · availability chip ───────── */
+.t3{background:var(--stock);border-bottom:1px solid var(--rule);padding:13px 40px;display:flex;align-items:center;gap:22px}
+.t3 .wm{font-size:18px;letter-spacing:-.012em;white-space:nowrap}
+.t3 .chip{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:6px 11px;border-radius:999px;white-space:nowrap}
+.t3 .dot{width:7px;height:7px;border-radius:50%;background:#3E8E5A;box-shadow:0 0 0 3px rgba(62,142,90,.18);animation:p 2.4s ease-in-out infinite}
+@keyframes p{50%{box-shadow:0 0 0 5px rgba(62,142,90,.06)}}
+.t3 nav{display:flex;gap:22px;margin-left:auto;overflow-x:auto}
+.t3 nav a{font-size:14.5px;color:var(--slate);white-space:nowrap;transition:.15s}
+.t3 nav a:hover,.t3 nav a.on{color:var(--ink)}
+.t3 .cta{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--ink);padding:8px 14px;white-space:nowrap;transition:.15s}
+.t3 .cta:hover{background:var(--ink);color:var(--stock)}
+
+/* ───────── T4 · side index ───────── */
+.t4page{display:grid;grid-template-columns:210px 1fr;background:var(--ground);color:var(--ink)}
+.t4{background:var(--stock);border-right:1px solid var(--rule);padding:22px 20px;display:flex;flex-direction:column;gap:22px}
+.t4 .wm{font-size:18px;line-height:1.2;letter-spacing:-.012em}
+.t4 .wm small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);margin-top:6px}
+.t4 ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.t4 li a{display:grid;grid-template-columns:24px 1fr;font-family:var(--mono);font-size:11.5px;color:var(--slate);padding:8px 0;border-bottom:1px solid var(--rule);transition:.15s}
+.t4 li a i{font-style:normal;font-size:10px;color:var(--slate)}
+.t4 li a.on,.t4 li a:hover{color:var(--ink)}
+.t4 li a.on i{color:var(--mark)}
+.t4 .foot{font-family:var(--mono);font-size:10.5px;line-height:1.8;color:var(--slate);margin-top:auto}
+.t4 .foot b{color:var(--mark);font-weight:500}
+
+/* ───────── T5 · dark strip ───────── */
+.t5{background:var(--dark);color:var(--dark-text);display:flex;align-items:center;gap:24px;padding:0 40px;height:52px}
+.t5 .wm{font-family:var(--mono);font-size:12px;font-weight:600;color:#F6F3EC;letter-spacing:.03em;white-space:nowrap}
+.t5 .wm i{font-style:normal;color:var(--mark)}
+.t5 nav{display:flex;gap:4px;height:100%;overflow-x:auto}
+.t5 nav a{font-family:var(--mono);font-size:11.5px;display:flex;align-items:center;padding:0 12px;height:100%;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s}
+.t5 nav a:hover{color:#F6F3EC}
+.t5 nav a.on{color:#F6F3EC;border-bottom-color:var(--mark)}
+.t5 .r{margin-left:auto;display:flex;gap:16px;font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+.t5 .r a:hover{color:var(--mark)}
+
+@media(max-width:820px){
+  .t0,.t3{padding-left:18px;padding-right:18px}
+  .t1{grid-template-columns:1fr auto}.t1 nav{grid-column:1/-1;grid-row:2;border-top:1px solid var(--rule);padding:10px 18px}
+  .t2 .wm{display:none}
+  .t3{flex-wrap:wrap}.t3 nav{margin-left:0;width:100%}
+  .t4page{grid-template-columns:1fr}.t4{border-right:0;border-bottom:1px solid var(--rule)}
+  .t5{padding:0 18px}.t5 .r{display:none}
+  .peek{padding:20px 16px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap bh">
+  <h1>Toolbar variants</h1>
+  <p>Your current bar is first, for reference. Each variant sits on top of a slice of your real masthead so you can see how it meets the page, and all of them use the house palette. Hover over the links to see their hover states.</p>
+  <p>This file is in <span class="m">design/</span>, so it never gets deployed. Pick a code and I'll put that bar on the live site.</p>
+</div>
+
+<div class="wrap">
+
+<section class="v">
+  <div class="vhead"><span class="vid">T0</span><span class="vname">Current</span><span class="vwhy">The status-bar design from before. Its weak points: the bar is two rows tall, the uppercase monospace links make all eight sections look equally important, and it has no button for the thing a recruiter most wants, your résumé.</span></div>
+  <div class="page">
+    <header class="t0">
+      <div class="top"><span class="wm">Prithvi Sairaj Krishnan</span><span class="st">Seeking · <b>summer 2027</b> · machine learning / software engineering</span></div>
+      <ul><li><a class="on" href="#">Record</a></li><li><a href="#">Current</a></li><li><a href="#">Tools</a></li><li><a href="#">Experience</a></li><li><a href="#">Teaching</a></li><li><a href="#">Honours</a></li><li><a href="#">Ask</a></li><li><a href="#">Contact</a></li></ul>
+    </header>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<section class="v">
+  <div class="vhead"><span class="vid">T1</span><span class="vname">Document header</span><span class="vwhy">A single row divided by the same hard black rules as the patent page below it. Your patent number stands in for a logo, and the résumé is a solid block on the right. It fits the masthead most closely.</span></div>
+  <div class="page">
+    <header class="t1">
+      <a class="id" href="#">PK <i>·</i> US 12,190,518</a>
+      <nav><a class="on" href="#">Record</a><a href="#">Research</a><a href="#">Tools</a><a href="#">Experience</a><a href="#">Teaching</a><a href="#">Honours</a><a href="#">Contact</a></nav>
+      <a class="cta" href="#">Résumé</a>
+    </header>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<section class="v">
+  <div class="vhead"><span class="vid">T2</span><span class="vname">Floating bar</span><span class="vwhy">A compact frosted bar that floats above the page with a gap around it, like the Starcloud and Clean sites you showed me. It covers the least of the page and feels the most like a modern product site. The orange résumé button is the only coloured element in it.</span></div>
+  <div class="page float">
+    <div class="t2wrap"><nav class="t2"><span class="wm">Prithvi Krishnan</span><a class="l on" href="#">Record</a><a class="l" href="#">Research</a><a class="l" href="#">Tools</a><a class="l" href="#">Experience</a><a class="l" href="#">Honours</a><a class="cta" href="#">Résumé ↓</a></nav></div>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<section class="v">
+  <div class="vhead"><span class="vid">T3</span><span class="vname">Availability chip</span><span class="vwhy">Your job-search status moves out of a line of small capitals into a chip with a slowly pulsing green dot. It says "open to work" at a glance. The links are in the serif body font, so the bar reads more quietly.</span></div>
+  <div class="page">
+    <header class="t3">
+      <span class="wm">Prithvi Krishnan</span>
+      <span class="chip"><span class="dot"></span>Open to summer 2027 internships</span>
+      <nav><a class="on" href="#">Record</a><a href="#">Research</a><a href="#">Tools</a><a href="#">Experience</a><a href="#">Honours</a><a href="#">Contact</a></nav>
+      <a class="cta" href="#">Résumé</a>
+    </header>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<section class="v">
+  <div class="vhead"><span class="vid">T4</span><span class="vname">Side index</span><span class="vwhy">On desktop the bar becomes a table of contents down the left side, numbered because the page really is read in order. It shows every section at once and never covers the content. On phones it moves back to the top.</span></div>
+  <div class="t4page">
+    <aside class="t4">
+      <div class="wm">Prithvi Sairaj Krishnan<small>ECE · UT Austin · 2028</small></div>
+      <ol>
+        <li><a class="on" href="#"><i>01</i>Record</a></li><li><a href="#"><i>02</i>Research</a></li><li><a href="#"><i>03</i>Tools</a></li><li><a href="#"><i>04</i>Experience</a></li><li><a href="#"><i>05</i>Teaching</a></li><li><a href="#"><i>06</i>Honours</a></li><li><a href="#"><i>07</i>Ask</a></li><li><a href="#"><i>08</i>Contact</a></li>
+      </ol>
+      <div class="foot">Seeking <b>summer 2027</b><br><a href="#">Résumé</a> · <a href="#">GitHub</a> · <a href="#">X</a></div>
+    </aside>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<section class="v">
+  <div class="vhead"><span class="vid">T5</span><span class="vname">Dark strip</span><span class="vwhy">A thin charcoal band, the same colour as your contact section, so the dark tone appears at both the top and the bottom of the page. It's the most decisive of the five and stands out clearly against the light page.</span></div>
+  <div class="page">
+    <header class="t5">
+      <span class="wm">PK <i>/</i> Krishnan</span>
+      <nav><a class="on" href="#">Record</a><a href="#">Research</a><a href="#">Tools</a><a href="#">Experience</a><a href="#">Honours</a><a href="#">Contact</a></nav>
+      <span class="r"><a href="#">GitHub</a><a href="#">X</a><a href="#">Résumé</a></span>
+    </header>
+    <div class="peek"><div class="doc"><div class="dh"><span>United States Patent</span><b>US 12,190,518 B1</b></div><h2>Prithvi Sairaj Krishnan</h2><small>[72] Inventor · Austin, Texas</small></div></div>
+  </div>
+</section>
+
+<div style="padding:40px 0 70px;color:#9AA0A6;font-size:14.5px;line-height:1.7;max-width:70ch">
+  My pick is <b style="color:#E9EAEB">T1</b>. It continues the patent-document look into the bar and adds a proper résumé button. <b style="color:#E9EAEB">T3</b> is the one to choose if you want "I'm available" to be the first thing people see.
+</div>
+</div>
+</body>
+</html>
