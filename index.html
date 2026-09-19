@@ -336,7 +336,7 @@ body{padding-left:var(--side)}
 <!-- ════════════════ N5 · NAVIGATION ════════════════ -->
 <header class="bar" aria-label="Site">
   <a class="wm" href="#">Prithvi Sairaj Krishnan<small>ECE · UT Austin · 2028<br>Austin, Texas</small></a>
-  <a class="status" href="mailto:prithvi.krishnan@utexas.edu">
+  <a class="status" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=prithvi.krishnan@utexas.edu" target="_blank" rel="noopener" data-email="prithvi.krishnan@utexas.edu">
     <span class="st-top"><span class="dot" aria-hidden="true"></span>Available</span>
     <span class="st-main">Open to summer 2027 internships</span>
     <span class="st-sub">ML · applied research · SWE</span>
@@ -666,7 +666,7 @@ body{padding-left:var(--side)}
   <h2>I am looking for a summer 2027 internship.</h2>
   <p>Machine learning, applied research, or software engineering. Austin or anywhere. If any of the four things above were interesting, the fastest way to find out more is to email me.</p>
   <div class="acts">
-    <a href="mailto:prithvi.krishnan@utexas.edu">prithvi.krishnan@utexas.edu</a>
+    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=prithvi.krishnan@utexas.edu" target="_blank" rel="noopener" data-email="prithvi.krishnan@utexas.edu">prithvi.krishnan@utexas.edu</a>
     <a href="Prithvi-Krishnan-Resume.pdf">Résumé</a>
     <a href="https://github.com/prithsk">GitHub</a>
     <a href="https://www.linkedin.com/in/prithvi-sairaj-krishnan-262538279/">LinkedIn</a>
@@ -682,7 +682,7 @@ body{padding-left:var(--side)}
 <footer class="foot3">
   <span class="wm">Prithvi Sairaj Krishnan</span>
   <nav aria-label="Elsewhere">
-    <a href="mailto:prithvi.krishnan@utexas.edu">Email</a>
+    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=prithvi.krishnan@utexas.edu" target="_blank" rel="noopener" data-email="prithvi.krishnan@utexas.edu">Email</a>
     <a href="https://github.com/prithsk">GitHub</a>
     <a href="https://www.linkedin.com/in/prithvi-sairaj-krishnan-262538279/">LinkedIn</a>
     <a href="https://x.com/building_pri">X</a>
@@ -752,11 +752,11 @@ body{padding-left:var(--side)}
     try { document.execCommand('copy'); } finally { ta.remove(); }
     return Promise.resolve();
   }
-  document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+  document.querySelectorAll('a[data-email]').forEach(function (a) {
     a.addEventListener('click', function () {
-      var addr = a.getAttribute('href').replace(/^mailto:/, '').split('?')[0];
+      var addr = a.dataset.email;
       copy(addr).then(
-        function () { show('<b>Copied</b> ' + addr); },
+        function () { show('<b>Opening Gmail</b> · address copied'); },
         function () { show(addr); }
       );
     });
